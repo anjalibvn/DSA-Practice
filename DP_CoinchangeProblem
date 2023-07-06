@@ -1,0 +1,19 @@
+#include<vector>
+long f(int ind,int target, int *a,vector<vector<long>>&dp){
+   if(ind==0){
+      return ( target % a[0]==0);
+   }
+   if(dp[ind][target]!=-1) return dp[ind][target];
+   long ntake = f(ind-1,target,a,dp);
+long  take=0;
+   if(a[ind]<=target) 
+     take=f(ind,target-a[ind],a,dp);
+      return dp[ind][target] =take+ntake;
+}
+
+long countWaysToMakeChange(int *denominations, int n, int value)
+{
+    //Write your code here
+    vector<vector<long>>dp(n,vector<long>(value+1,-1));
+    return f(n-1,value,denominations,dp);
+}
